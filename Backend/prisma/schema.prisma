@@ -1,0 +1,23 @@
+// Prisma schema: describes your database tables in a simple language.
+// Prisma turns this into real SQL tables (via "migrations") and
+// generates a typed client so you can query the DB from TypeScript.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid()) // unique random ID
+  name         String
+  email        String   @unique              // no two users can share an email
+  passwordHash String                        // we NEVER store the real password
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Project, Task and Comment models will be added in Week 3.
+}

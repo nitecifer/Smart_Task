@@ -1,0 +1,18 @@
+# Runs a PostgreSQL database inside Docker so you don't have to install it.
+# Start it with:  npm run db:up
+services:
+  db:
+    image: postgres:16
+    container_name: taskmanager-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: taskuser
+      POSTGRES_PASSWORD: taskpass
+      POSTGRES_DB: taskmanager
+    ports:
+      - "5433:5432" # your PC port 5433 -> container port 5432 (5432 is used by another project)
+    volumes:
+      - db-data:/var/lib/postgresql/data # keeps your data when the container restarts
+
+volumes:
+  db-data:
